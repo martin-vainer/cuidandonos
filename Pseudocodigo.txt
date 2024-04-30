@@ -4,31 +4,37 @@ class API_DistanceMatrix:
     function calcularDistanciasYTiempo(listaDirecciones):
         resultado = []
 
-        for i from 0 to listaDirecciones.length - 2:
+        for i from 0 to listaDirecciones.length - 2: // ¿por qué el -2?
 
             origen = listaDirecciones[i]
             destino = listaDirecciones[i + 1]
             tiempo = consultarAPI(origen, destino)  // Simulamos una consulta a la API de Google
             resultado.append(tiempo) //append permite agregar un elemento al final de la lista.
-        return resultado
+        return resultado //devuelve lista con tiempos de cada trayecto.
 
 class Ruta:
     list paradas
     list tiemposDeParada
     bool estadoSaludEnParadas
+    int totalDemora
 
-    function calcularDemoras():
+    function calcularDemoras():{
         tiempos = API_DistanceMatrix.calcularDistanciasYTiempo(paradas)
         demorasTotales = []
 
-        for i from 0 to tiempos.length - 1:
-
+// hacemos esto con un For ya que contemplamos la posibilidad de que el usuario especifique los N minutos que se detiene en cada parada. (sino hariamos el sum directamente).
+        for i from 0 to tiempos.length - 1:{ // ¿por qué el -1?
             demoraSeccion = tiempos[i]
+//---------------------------------
+// no pide esta lógica el enunciado ya que solo pide cuando el usuario no especifica la demora en cada parada:
             if tiemposDeParada[i] is not None:
-                demoraSeccion += tiemposDeParada[i]
+             	demoraSeccion += tiemposDeParada[i]
+//---------------------------------
             demorasTotales.append(demoraSeccion)
-        return demorasTotales
-
+	}
+	totalDemora = SUM(demorasTotales)
+        return totalDemora
+    }
 class Transeunte(Usuario):
     Ruta ruta
 
