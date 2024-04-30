@@ -1,11 +1,15 @@
+// CALCULO DE DEMORA TOTAL APROXIMADO si no se detiene en cada parada
+
 class API_DistanceMatrix:
     function calcularDistanciasYTiempo(listaDirecciones):
         resultado = []
+
         for i from 0 to listaDirecciones.length - 2:
+
             origen = listaDirecciones[i]
             destino = listaDirecciones[i + 1]
             tiempo = consultarAPI(origen, destino)  // Simulamos una consulta a la API de Google
-            resultado.append(tiempo)
+            resultado.append(tiempo) //append permite agregar un elemento al final de la lista.
         return resultado
 
 class Ruta:
@@ -16,7 +20,9 @@ class Ruta:
     function calcularDemoras():
         tiempos = API_DistanceMatrix.calcularDistanciasYTiempo(paradas)
         demorasTotales = []
+
         for i from 0 to tiempos.length - 1:
+
             demoraSeccion = tiempos[i]
             if tiemposDeParada[i] is not None:
                 demoraSeccion += tiemposDeParada[i]
@@ -32,3 +38,4 @@ class Transeunte(Usuario):
     function comenzarTrayecto():
         demoras = ruta.calcularDemoras()
         // Lógica adicional para manejar el inicio del trayecto y notificaciones
+
